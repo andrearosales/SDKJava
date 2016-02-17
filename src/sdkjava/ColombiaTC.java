@@ -100,6 +100,7 @@ public class ColombiaTC {
 //Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
         parameters.put(PayU.PARAMETERS.CREDIT_CARD_EXPIRATION_DATE, "2018/12");
 //Ingrese aquí el código de seguridad de la tarjeta de crédito
+//"VISA" || "MASTERCARD" || "AMEX" || "DINERS"
         parameters.put(PayU.PARAMETERS.CREDIT_CARD_SECURITY_CODE, "321");
 //Ingrese aquí el nombre de la tarjeta de crédito
         parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "VISA");

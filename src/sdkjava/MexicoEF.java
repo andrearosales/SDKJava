@@ -24,7 +24,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class ColombiaEF {
+public class MexicoEF {
 
     public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
@@ -35,12 +35,14 @@ public class ColombiaEF {
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
 
-        String reference = "payment_test_7416";
-        String value = "10000";
+        String reference = "payment_test_9816";
+        String value = "100";
+
+//para realizar un pago en efectivo ---------------------------------
         Map<String, String> parameters = new HashMap<String, String>();
 
 //Ingrese aquí el identificador de la cuenta.
-        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500538");
+        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500547");
 //Ingrese aquí el código de referencia.
         parameters.put(PayU.PARAMETERS.REFERENCE_CODE, "" + reference);
 //Ingrese aquí la descripción.
@@ -52,7 +54,7 @@ public class ColombiaEF {
 //Ingrese aquí el valor.
         parameters.put(PayU.PARAMETERS.VALUE, "" + value);
 //Ingrese aquí la moneda.
-        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.COP.name());
+        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.MXN.name());
 
 //Ingrese aquí el email del comprador.
         parameters.put(PayU.PARAMETERS.BUYER_EMAIL, "buyer_test@test.com");
@@ -61,14 +63,14 @@ public class ColombiaEF {
         parameters.put(PayU.PARAMETERS.PAYER_NAME, "First name and second payer name");
 
 //Ingrese aquí el nombre del medio de pago en efectivo
-//"BALOTO" || "EFECTY" || "BANK_REFERENCED"
-        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "BALOTO");
+//"SEVEN_ELEVEN" || "SCOTIABANK" || "IXE" || "SANTANDER" || "BANCOMER" || "OXXO" || "BANAMEX"
+        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "OXXO");
 
 //Ingrese aquí el nombre del pais.
-        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.CO.name());
+        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.MX.name());
 
-//Ingrese aquí la fecha de expiración. 
-        parameters.put(PayU.PARAMETERS.EXPIRATION_DATE, "2016-02-20T00:00:00");
+//Ingrese aquí la fecha de expiración. Sólo para OXXO y SEVEN_ELEVEN 
+        parameters.put(PayU.PARAMETERS.EXPIRATION_DATE, "2016-05-20T00:00:00");
 
 //IP del pagadador
         parameters.put(PayU.PARAMETERS.IP_ADDRESS, "127.0.0.1");
@@ -94,7 +96,5 @@ public class ColombiaEF {
             response.getResponseCode();
             response.getResponseMessage();
         }
-
     }
-
 }

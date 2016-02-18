@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava;
+package sdkjava_pagos;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;
@@ -24,7 +24,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class ColombiaEF {
+public class PeruEF {
 
     public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
@@ -35,12 +35,13 @@ public class ColombiaEF {
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
 
-        String reference = "payment_test_7416";
-        String value = "10000";
+        String reference = "payment_test_91651";
+        String value = "100";
+
         Map<String, String> parameters = new HashMap<String, String>();
 
 //Ingrese aquí el identificador de la cuenta.
-        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500538");
+        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500546");
 //Ingrese aquí el código de referencia.
         parameters.put(PayU.PARAMETERS.REFERENCE_CODE, "" + reference);
 //Ingrese aquí la descripción.
@@ -52,26 +53,30 @@ public class ColombiaEF {
 //Ingrese aquí el valor.
         parameters.put(PayU.PARAMETERS.VALUE, "" + value);
 //Ingrese aquí la moneda.
-        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.COP.name());
+        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.PEN.name());
 
 //Ingrese aquí el email del comprador.
         parameters.put(PayU.PARAMETERS.BUYER_EMAIL, "buyer_test@test.com");
 
 //Ingrese aquí el nombre del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_NAME, "First name and second payer name");
+        
+//Ingrese aquí el documento de contacto del pagador.        
+        parameters.put(PayU.PARAMETERS.PAYER_DNI, "123456789");
 
-//Ingrese aquí el nombre del medio de pago en efectivo
-//"BALOTO" || "EFECTY" || "BANK_REFERENCED"
-        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "BALOTO");
+//Ingrese aquí el nombre de la tarjeta de crédito
+        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "BCP");
 
 //Ingrese aquí el nombre del pais.
-        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.CO.name());
+        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.PE.name());
 
 //Ingrese aquí la fecha de expiración. 
-        parameters.put(PayU.PARAMETERS.EXPIRATION_DATE, "2016-02-20T00:00:00");
+        parameters.put(PayU.PARAMETERS.EXPIRATION_DATE, "2019-05-21T00:00:00");
 
 //IP del pagadador
         parameters.put(PayU.PARAMETERS.IP_ADDRESS, "127.0.0.1");
+        
+        parameters.put(PayU.PARAMETERS.SIGNATURE, "0C4E8288D855582B968C929E16B17DA6");
 
 //Solicitud de autorización y captura
         TransactionResponse response = PayUPayments.doAuthorizationAndCapture(parameters);
@@ -87,6 +92,7 @@ public class ColombiaEF {
 
                 //obtener la url del comprobante de pago
                 String url = (String) extraParameters.get("URL_PAYMENT_RECEIPT_HTML");
+
             }
             response.getPaymentNetworkResponseCode();
             response.getPaymentNetworkResponseErrorMessage();
@@ -94,7 +100,5 @@ public class ColombiaEF {
             response.getResponseCode();
             response.getResponseMessage();
         }
-
     }
-
 }

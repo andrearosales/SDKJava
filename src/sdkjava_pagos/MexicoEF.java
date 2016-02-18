@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava;
+package sdkjava_pagos;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;
@@ -24,7 +24,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class ArgentinaEF {
+public class MexicoEF {
 
     public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
@@ -35,13 +35,14 @@ public class ArgentinaEF {
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
 
-        String reference = "payment_test_984";
+        String reference = "payment_test_9816";
         String value = "100";
 
+//para realizar un pago en efectivo ---------------------------------
         Map<String, String> parameters = new HashMap<String, String>();
 
 //Ingrese aquí el identificador de la cuenta.
-        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "509171");
+        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500547");
 //Ingrese aquí el código de referencia.
         parameters.put(PayU.PARAMETERS.REFERENCE_CODE, "" + reference);
 //Ingrese aquí la descripción.
@@ -53,7 +54,7 @@ public class ArgentinaEF {
 //Ingrese aquí el valor.
         parameters.put(PayU.PARAMETERS.VALUE, "" + value);
 //Ingrese aquí la moneda.
-        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.ARS.name());
+        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.MXN.name());
 
 //Ingrese aquí el email del comprador.
         parameters.put(PayU.PARAMETERS.BUYER_EMAIL, "buyer_test@test.com");
@@ -62,16 +63,17 @@ public class ArgentinaEF {
         parameters.put(PayU.PARAMETERS.PAYER_NAME, "First name and second payer name");
 
 //Ingrese aquí el nombre del medio de pago en efectivo
-//"PAGOFACIL"||"BAPRO"||"COBRO_EXPRESS"||"RAPIPAGO"||"RIPSA"
-        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "PAGOFACIL");
+//"SEVEN_ELEVEN" || "SCOTIABANK" || "IXE" || "SANTANDER" || "BANCOMER" || "OXXO" || "BANAMEX"
+        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "OXXO");
 
 //Ingrese aquí el nombre del pais.
-        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.AR.name());
+        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.MX.name());
+
+//Ingrese aquí la fecha de expiración. Sólo para OXXO y SEVEN_ELEVEN 
+        parameters.put(PayU.PARAMETERS.EXPIRATION_DATE, "2016-05-20T00:00:00");
 
 //IP del pagadador
         parameters.put(PayU.PARAMETERS.IP_ADDRESS, "127.0.0.1");
-        
-        parameters.put(PayU.PARAMETERS.SIGNATURE, "FAC81BF516306743ADF862979DCE36E3");
 
 //Solicitud de autorización y captura
         TransactionResponse response = PayUPayments.doAuthorizationAndCapture(parameters);
@@ -87,7 +89,6 @@ public class ArgentinaEF {
 
                 //obtener la url del comprobante de pago
                 String url = (String) extraParameters.get("URL_PAYMENT_RECEIPT_HTML");
-
             }
             response.getPaymentNetworkResponseCode();
             response.getPaymentNetworkResponseErrorMessage();

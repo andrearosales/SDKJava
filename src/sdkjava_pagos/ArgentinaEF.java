@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava;
+package sdkjava_pagos;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;
@@ -11,10 +11,8 @@ import com.payu.sdk.exceptions.ConnectionException;
 import com.payu.sdk.exceptions.InvalidParametersException;
 import com.payu.sdk.exceptions.PayUException;
 import com.payu.sdk.model.Currency;
-import com.payu.sdk.model.DocumentType;
 import com.payu.sdk.model.Language;
 import com.payu.sdk.model.PaymentCountry;
-import com.payu.sdk.model.PersonType;
 import com.payu.sdk.model.TransactionResponse;
 import com.payu.sdk.model.TransactionState;
 import com.payu.sdk.utils.LoggerUtil;
@@ -26,7 +24,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class ColombiaPSE {
+public class ArgentinaEF {
 
     public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
@@ -37,12 +35,13 @@ public class ColombiaPSE {
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
 
-        String reference = "payment_test_6851";
-        String value= "10000";
+        String reference = "payment_test_984";
+        String value = "100";
+
         Map<String, String> parameters = new HashMap<String, String>();
 
 //Ingrese aquí el identificador de la cuenta.
-        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500538");
+        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "509171");
 //Ingrese aquí el código de referencia.
         parameters.put(PayU.PARAMETERS.REFERENCE_CODE, "" + reference);
 //Ingrese aquí la descripción.
@@ -54,45 +53,25 @@ public class ColombiaPSE {
 //Ingrese aquí el valor.
         parameters.put(PayU.PARAMETERS.VALUE, "" + value);
 //Ingrese aquí la moneda.
-        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.COP.name());
+        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.ARS.name());
 
 //Ingrese aquí el email del comprador.
         parameters.put(PayU.PARAMETERS.BUYER_EMAIL, "buyer_test@test.com");
 
-// -- pagador --
 //Ingrese aquí el nombre del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_NAME, "First name and second payer name");
-//Ingrese aquí el email del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_EMAIL, "payer_test@test.com");
-//Ingrese aquí el teléfono de contacto del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_CONTACT_PHONE, "7563126");
 
-// -- infarmación obligatoria para PSE --
-//Ingrese aquí el código pse del banco.
-        parameters.put(PayU.PARAMETERS.PSE_FINANCIAL_INSTITUTION_CODE, "1051");
-//Ingrese aquí el tipo de persona (natural o jurídica)
-        parameters.put(PayU.PARAMETERS.PAYER_PERSON_TYPE, PersonType.NATURAL.toString());
-//o parameters.put(PayU.PARAMETERS.PAYER_PERSON_TYPE, PersonType.LEGAL.toString() );	
-//Ingrese aquí el documento de contacto del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_DNI, "123456789");
-//Ingrese aquí el tipo de documento del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_DOCUMENT_TYPE, DocumentType.CC.toString());
-//IP del pagadador
-        parameters.put(PayU.PARAMETERS.IP_ADDRESS, "127.0.0.1");
-
-//Ingrese aquí el nombre del medio de pago
-        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "PSE");
+//Ingrese aquí el nombre del medio de pago en efectivo
+//"PAGOFACIL"||"BAPRO"||"COBRO_EXPRESS"||"RAPIPAGO"||"RIPSA"
+        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "PAGOFACIL");
 
 //Ingrese aquí el nombre del pais.
-        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.CO.name());
+        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.AR.name());
 
-//Cookie de la sesión actual.
-        parameters.put(PayU.PARAMETERS.COOKIE, "pt1t38347bs6jc9ruv2ecpv7o2");
-//Cookie de la sesión actual.
-        parameters.put(PayU.PARAMETERS.USER_AGENT, "Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0");
-
-//Página de respuesta a la cual será redirigido el pagador.
-        parameters.put(PayU.PARAMETERS.RESPONSE_URL, "http://www.test.com/response");
+//IP del pagadador
+        parameters.put(PayU.PARAMETERS.IP_ADDRESS, "127.0.0.1");
+        
+        parameters.put(PayU.PARAMETERS.SIGNATURE, "FAC81BF516306743ADF862979DCE36E3");
 
 //Solicitud de autorización y captura
         TransactionResponse response = PayUPayments.doAuthorizationAndCapture(parameters);
@@ -106,8 +85,8 @@ public class ColombiaPSE {
                 response.getPendingReason();
                 Map extraParameters = response.getExtraParameters();
 
-                //obtener la url del banco
-                String url = (String) extraParameters.get("BANK_URL");
+                //obtener la url del comprobante de pago
+                String url = (String) extraParameters.get("URL_PAYMENT_RECEIPT_HTML");
 
             }
             response.getPaymentNetworkResponseCode();
@@ -117,5 +96,4 @@ public class ColombiaPSE {
             response.getResponseMessage();
         }
     }
-
 }

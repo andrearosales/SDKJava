@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava;
+package sdkjava_pagos;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;
@@ -23,30 +23,24 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class PanamaTC {
+public class PeruTC {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws PayUException, ConnectionException, InvalidParametersException {
-        // TODO code application logic here
+    public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
         PayU.apiLogin = "11959c415b33d0c"; //Ingresa aquí tu apiLogin.
         PayU.language = Language.en; //Ingresa aquí el idioma que prefieras.
-        PayU.isTest = false; //Dejarlo verdadero cuando sean pruebas.
+        PayU.isTest = true; //Dejarlo verdadero cuando sean pruebas.
         LoggerUtil.setLogLevel(Level.ALL); //Incluirlo únicamente si desea ver toda la traza del log; si solo se desea ver la respuesta, se puede eliminar.
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
 
-        //boolean response = PayUPayments.doPing();
-        //LoggerUtil.info("{0}", response);
-        String reference = "payment_test_6756756788";
+        String reference = "payment_test_651323";
         String value = "100";
 
         Map<String, String> parameters = new HashMap<String, String>();
 
 //Ingrese aquí el identificador de la cuenta.
-        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500537");
+        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500546");
 //Ingrese aquí el código de referencia.
         parameters.put(PayU.PARAMETERS.REFERENCE_CODE, "" + reference);
 //Ingrese aquí la descripción.
@@ -58,7 +52,7 @@ public class PanamaTC {
 //Ingrese aquí el valor.
         parameters.put(PayU.PARAMETERS.VALUE, "" + value);
 //Ingrese aquí la moneda.
-        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.USD.name());
+        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.PEN.name());
 
 // -- Comprador --
 //Ingrese aquí el id del comprador.
@@ -72,11 +66,11 @@ public class PanamaTC {
 //Ingrese aquí el documento de contacto del comprador.
         parameters.put(PayU.PARAMETERS.BUYER_DNI, "5415668464654");
 //Ingrese aquí la dirección del comprador.
-        parameters.put(PayU.PARAMETERS.BUYER_STREET, "Palacio de Las Garzas");
-        parameters.put(PayU.PARAMETERS.BUYER_STREET_2, "Corregimiento de San Felipe");
-        parameters.put(PayU.PARAMETERS.BUYER_CITY, "Colon");
-        parameters.put(PayU.PARAMETERS.BUYER_STATE, "Colon");
-        parameters.put(PayU.PARAMETERS.BUYER_COUNTRY, "PA");
+        parameters.put(PayU.PARAMETERS.BUYER_STREET, "Avenida de la poesia");
+        parameters.put(PayU.PARAMETERS.BUYER_STREET_2, "160");
+        parameters.put(PayU.PARAMETERS.BUYER_CITY, "Cuzco");
+        parameters.put(PayU.PARAMETERS.BUYER_STATE, "CU");
+        parameters.put(PayU.PARAMETERS.BUYER_COUNTRY, "PE");
         parameters.put(PayU.PARAMETERS.BUYER_POSTAL_CODE, "000000");
         parameters.put(PayU.PARAMETERS.BUYER_PHONE, "7563126");
 
@@ -84,7 +78,7 @@ public class PanamaTC {
 //Ingrese aquí el id del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_ID, "1");
 //Ingrese aquí el nombre del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_NAME, "First name and second payer name");
+        parameters.put(PayU.PARAMETERS.PAYER_NAME, "APPROVED");
 //Ingrese aquí el email del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_EMAIL, "payer_test@test.com");
 //Ingrese aquí el teléfono de contacto del pagador.
@@ -92,28 +86,29 @@ public class PanamaTC {
 //Ingrese aquí el documento de contacto del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_DNI, "5415668464654");
 //Ingrese aquí la dirección del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_STREET, "Colon");
-        parameters.put(PayU.PARAMETERS.PAYER_STREET_2, "2000");
-        parameters.put(PayU.PARAMETERS.PAYER_CITY, "Santiago");
-        parameters.put(PayU.PARAMETERS.PAYER_STATE, "Veraguas DC");
-        parameters.put(PayU.PARAMETERS.PAYER_COUNTRY, "PA");
+        parameters.put(PayU.PARAMETERS.PAYER_STREET, "av abancay");
+        parameters.put(PayU.PARAMETERS.PAYER_STREET_2, "cra 4");
+        parameters.put(PayU.PARAMETERS.PAYER_CITY, "Iquitos");
+        parameters.put(PayU.PARAMETERS.PAYER_STATE, "LO");
+        parameters.put(PayU.PARAMETERS.PAYER_COUNTRY, "PE");
         parameters.put(PayU.PARAMETERS.PAYER_POSTAL_CODE, "000000");
         parameters.put(PayU.PARAMETERS.PAYER_PHONE, "7563126");
 
 // -- Datos de la tarjeta de crédito -- 
 //Ingrese aquí el número de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_NUMBER, "5471300000000003");
+        parameters.put(PayU.PARAMETERS.CREDIT_CARD_NUMBER, "4907840000000005");
 //Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
         parameters.put(PayU.PARAMETERS.CREDIT_CARD_EXPIRATION_DATE, "2018/12");
 //Ingrese aquí el código de seguridad de la tarjeta de crédito
         parameters.put(PayU.PARAMETERS.CREDIT_CARD_SECURITY_CODE, "321");
 //Ingrese aquí el nombre de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "MASTERCARD");
+//"VISA" || "MASTERCARD" || "AMEX"
+        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "VISA");
 
 //Ingrese aquí el número de cuotas.
         parameters.put(PayU.PARAMETERS.INSTALLMENTS_NUMBER, "1");
 //Ingrese aquí el nombre del pais.
-        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.PA.name());
+        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.PE.name());
 
 //Session id del device.
         parameters.put(PayU.PARAMETERS.DEVICE_SESSION_ID, "vghs6tvkcle931686k1900o6e1");
@@ -123,9 +118,9 @@ public class PanamaTC {
         parameters.put(PayU.PARAMETERS.COOKIE, "pt1t38347bs6jc9ruv2ecpv7o2");
 //Cookie de la sesión actual.
         parameters.put(PayU.PARAMETERS.USER_AGENT, "Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0");
-        
-        parameters.put(PayU.PARAMETERS.SIGNATURE, "F8BC4A47C552076DACD429C1D9B58B20");
 
+        parameters.put(PayU.PARAMETERS.SIGNATURE, "1557FBAAC3ADC9D4AC5E324EF1968013");
+        
 //Solicitud de autorización y captura
         TransactionResponse response = PayUPayments.doAuthorizationAndCapture(parameters);
 
@@ -144,5 +139,4 @@ public class PanamaTC {
             response.getResponseMessage();
         }
     }
-
 }

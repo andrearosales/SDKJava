@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava;
+package sdkjava_pagos;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;

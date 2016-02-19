@@ -23,7 +23,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class Cobro_Panamá {
+public class Cobro_Panama {
 
     public static void main(String[] args) throws PayUException, ConnectionException, InvalidParametersException {
         // TODO code application logic here

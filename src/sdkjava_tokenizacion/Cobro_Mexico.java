@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava_pagos;
+package sdkjava_tokenizacion;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;
@@ -23,7 +23,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class ColombiaTC {
+public class Cobro_Mexico {
 
     public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
@@ -34,13 +34,13 @@ public class ColombiaTC {
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
 
-        String reference = "payment_test_6514";
-        String value = "10000";
+        String reference = "payment_test_841631";
+        String value = "100";
 
         Map<String, String> parameters = new HashMap<String, String>();
 
 //Ingrese aquí el identificador de la cuenta.
-        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500538");
+        parameters.put(PayU.PARAMETERS.ACCOUNT_ID, "500547");
 //Ingrese aquí el código de referencia.
         parameters.put(PayU.PARAMETERS.REFERENCE_CODE, "" + reference);
 //Ingrese aquí la descripción.
@@ -52,7 +52,7 @@ public class ColombiaTC {
 //Ingrese aquí el valor.
         parameters.put(PayU.PARAMETERS.VALUE, "" + value);
 //Ingrese aquí la moneda.
-        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.COP.name());
+        parameters.put(PayU.PARAMETERS.CURRENCY, "" + Currency.MXN.name());
 
 // -- Comprador --
 //Ingrese aquí el id del comprador.
@@ -66,19 +66,19 @@ public class ColombiaTC {
 //Ingrese aquí el documento de contacto del comprador.
         parameters.put(PayU.PARAMETERS.BUYER_DNI, "5415668464654");
 //Ingrese aquí la dirección del comprador.
-        parameters.put(PayU.PARAMETERS.BUYER_STREET, "calle 100");
-        parameters.put(PayU.PARAMETERS.BUYER_STREET_2, "5555487");
-        parameters.put(PayU.PARAMETERS.BUYER_CITY, "Medellin");
-        parameters.put(PayU.PARAMETERS.BUYER_STATE, "Antioquia");
-        parameters.put(PayU.PARAMETERS.BUYER_COUNTRY, "CO");
+        parameters.put(PayU.PARAMETERS.BUYER_STREET, "Calle Salvador Alvarado");
+        parameters.put(PayU.PARAMETERS.BUYER_STREET_2, "8 int 103");
+        parameters.put(PayU.PARAMETERS.BUYER_CITY, "Guadalajara");
+        parameters.put(PayU.PARAMETERS.BUYER_STATE, "Jalisco");
+        parameters.put(PayU.PARAMETERS.BUYER_COUNTRY, "MX");
         parameters.put(PayU.PARAMETERS.BUYER_POSTAL_CODE, "000000");
         parameters.put(PayU.PARAMETERS.BUYER_PHONE, "7563126");
 
-// -- Pagador --
+// -- pagador --
 //Ingrese aquí el id del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_ID, "1");
 //Ingrese aquí el nombre del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_NAME, "APPROVED");
+        parameters.put(PayU.PARAMETERS.PAYER_NAME, "First name and second payer name");
 //Ingrese aquí el email del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_EMAIL, "payer_test@test.com");
 //Ingrese aquí el teléfono de contacto del pagador.
@@ -86,29 +86,24 @@ public class ColombiaTC {
 //Ingrese aquí el documento de contacto del pagador.
         parameters.put(PayU.PARAMETERS.PAYER_DNI, "5415668464654");
 //Ingrese aquí la dirección del pagador.
-        parameters.put(PayU.PARAMETERS.PAYER_STREET, "calle 93");
-        parameters.put(PayU.PARAMETERS.PAYER_STREET_2, "125544");
-        parameters.put(PayU.PARAMETERS.PAYER_CITY, "Bogota");
-        parameters.put(PayU.PARAMETERS.PAYER_STATE, "Bogota");
-        parameters.put(PayU.PARAMETERS.PAYER_COUNTRY, "CO");
-        parameters.put(PayU.PARAMETERS.PAYER_POSTAL_CODE, "000000");
+        parameters.put(PayU.PARAMETERS.PAYER_STREET, "Calle Zaragoza esquina");
+        parameters.put(PayU.PARAMETERS.PAYER_STREET_2, "calle 5 de Mayo");
+        parameters.put(PayU.PARAMETERS.PAYER_CITY, "Monterrey");
+        parameters.put(PayU.PARAMETERS.PAYER_STATE, "Nuevo Leon");
+        parameters.put(PayU.PARAMETERS.PAYER_COUNTRY, "MX");
+        parameters.put(PayU.PARAMETERS.PAYER_POSTAL_CODE, "64000");
         parameters.put(PayU.PARAMETERS.PAYER_PHONE, "7563126");
 
-// -- Datos de la tarjeta de crédito -- 
+// -- Datos del token -- 
 //Ingrese aquí el número de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_NUMBER, "4097440000000004");
-//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_EXPIRATION_DATE, "2018/12");
-//Ingrese aquí el código de seguridad de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_SECURITY_CODE, "321");
+        parameters.put(PayU.PARAMETERS.TOKEN_ID, "0c03f24a-7521-4cf6-974d-c866414cc936");
 //Ingrese aquí el nombre de la tarjeta de crédito
-//"VISA" || "MASTERCARD" || "AMEX" || "DINERS"
+//"VISA" || "MASTERCARD"
         parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "VISA");
-
 //Ingrese aquí el número de cuotas.
         parameters.put(PayU.PARAMETERS.INSTALLMENTS_NUMBER, "1");
 //Ingrese aquí el nombre del pais.
-        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.CO.name());
+        parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.MX.name());
 
 //Session id del device.
         parameters.put(PayU.PARAMETERS.DEVICE_SESSION_ID, "vghs6tvkcle931686k1900o6e1");
@@ -136,7 +131,5 @@ public class ColombiaTC {
             response.getResponseCode();
             response.getResponseMessage();
         }
-
     }
-
 }

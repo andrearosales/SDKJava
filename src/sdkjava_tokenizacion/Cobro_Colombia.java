@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sdkjava_pagos;
+package sdkjava_tokenizacion;
 
 import com.payu.sdk.PayU;
 import com.payu.sdk.PayUPayments;
@@ -23,7 +23,7 @@ import java.util.logging.Level;
  *
  * @author andrea.rosales
  */
-public class ColombiaTC {
+public class Cobro_Colombia {
 
     public static void main(String[] args) throws PayUException, InvalidParametersException, ConnectionException {
         PayU.apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingresa aquí tu apiKey.
@@ -33,8 +33,8 @@ public class ColombiaTC {
         LoggerUtil.setLogLevel(Level.ALL); //Incluirlo únicamente si desea ver toda la traza del log; si solo se desea ver la respuesta, se puede eliminar.
         PayU.paymentsUrl = "https://stg.api.payulatam.com/payments-api/"; //Incluirlo únicamente si desea probar en un servidor de pagos específico, e indicar la ruta del mismo.
         PayU.reportsUrl = "https://stg.api.payulatam.com/reports-api/"; //Incluirlo únicamente si desea probar en un servidor de reportes específico, e indicar la ruta del mismo.
-
-        String reference = "payment_test_6514";
+        
+        String reference = "p_test_1324235";
         String value = "10000";
 
         Map<String, String> parameters = new HashMap<String, String>();
@@ -94,21 +94,17 @@ public class ColombiaTC {
         parameters.put(PayU.PARAMETERS.PAYER_POSTAL_CODE, "000000");
         parameters.put(PayU.PARAMETERS.PAYER_PHONE, "7563126");
 
-// -- Datos de la tarjeta de crédito -- 
-//Ingrese aquí el número de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_NUMBER, "4097440000000004");
-//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_EXPIRATION_DATE, "2018/12");
-//Ingrese aquí el código de seguridad de la tarjeta de crédito
-        parameters.put(PayU.PARAMETERS.CREDIT_CARD_SECURITY_CODE, "321");
-//Ingrese aquí el nombre de la tarjeta de crédito
-//"VISA" || "MASTERCARD" || "AMEX" || "DINERS"
-        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "VISA");
+// -- Datos del token -- 
+//Ingrese aquí el número del token
+        parameters.put(PayU.PARAMETERS.TOKEN_ID, "0c03f24a-7521-4cf6-974d-c866414cc936");
 
 //Ingrese aquí el número de cuotas.
         parameters.put(PayU.PARAMETERS.INSTALLMENTS_NUMBER, "1");
 //Ingrese aquí el nombre del pais.
         parameters.put(PayU.PARAMETERS.COUNTRY, PaymentCountry.CO.name());
+//Ingrese aquí el nombre de la tarjeta de crédito
+//"VISA" || "MASTERCARD" || "AMEX" || "DINERS"
+        parameters.put(PayU.PARAMETERS.PAYMENT_METHOD, "VISA");
 
 //Session id del device.
         parameters.put(PayU.PARAMETERS.DEVICE_SESSION_ID, "vghs6tvkcle931686k1900o6e1");
@@ -136,7 +132,5 @@ public class ColombiaTC {
             response.getResponseCode();
             response.getResponseMessage();
         }
-
     }
-
 }
